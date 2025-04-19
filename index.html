@@ -1,0 +1,221 @@
+<style>
+    body {
+        font-family: "Winky Rough", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: weight;
+        font-style: normal;
+        font-size: xx-large;
+    }
+
+    .studentform {
+        width: 100%;
+    }
+
+    .enterinfo {
+        border: none;
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 80%;
+    }
+
+    .studentform h1 {
+        animation: jump 2s linear infinite;
+    }
+
+    @keyframes jump {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(10px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .enterinfo td {
+        font-size: 20px;
+        border: none;
+        padding: 10px;
+        border: solid black 2px;
+        width: 100%;
+    }
+
+    .enterinfo td input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+    }
+
+    .enterinfo td:first-child {
+        width: 150px;
+    }
+
+    .enterinfo td:last-child {
+        width: 70%
+    }
+
+    .save {
+        background-color: #80FFD4;
+    }
+
+    .save:hover {
+        background-color: yellow;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+
+    .enterinfo select {
+        background-color: transparent;
+        border: none;
+        border: solid black 1px;
+        padding: 5px;
+        width: 100%;
+    }
+</style>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body background="form bg.jpg">
+    <div class="studentform" style="text-align: center;margin-top: 50px;">
+        <h1 style="text-align: center;font-size: 48px;color:red;">Student Form</h1>
+        <form id="regform" style="margin-bottom: 10px;">
+            <table border="1" style="padding:5px; display: inline-block;width:500px;" class="enterinfo">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" placeholder="Enter your Name" id="name"></td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td><input type="number" placeholder="Enter your Age" id="age"></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td><input type="radio" name="gender" id="male">Male <input type="radio" name="gender"
+                            id="female">Female</td>
+                </tr>
+                <tr>
+                    <td>Course</td>
+                    <td>
+                        <select name="" id="course" style="width: 100%;">
+                            <option value="Javascript">Javascript</option>
+                            <option value=" Java">Java</option>
+                            <option value="Python">Python</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td><input type="email" placeholder="Enter your email" id="email"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="save"
+                            style="width:100%;border-radius: 30px;padding:10px;cursor: pointer;font-weight: bolder; font-size: large;"
+                            onclick="save(event)">Save</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div style="text-align: center;">
+        <form>
+            <table id="displaytable" border="1" style="display: inline-block;margin-top:20px;">
+                <tr>
+                    <td style="padding:5px;font-weight: bold;">NAME</td>
+                    <td style="padding:5px;font-weight: bold;">AGE</td>
+                    <td style="padding:5px;font-weight: bold;">COURSE</td>
+                    <td style="padding:5px;font-weight: bold;">Gender</td>
+                    <td style="padding:5px;font-weight: bold;">EMAIL</td>
+                    <td style="padding:5px;font-weight: bold;">ACTION</td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+
+    <script>
+        var studname = document.getElementById("name")
+        var age = document.getElementById("age")
+        var course = document.getElementById("course")
+        var email = document.getElementById("email")
+        var displaytable = document.getElementById("displaytable")
+        var studentform = document.getElementById("studentform")
+
+
+        function save(event) {
+            var genderelement = document.querySelector('input[name="gender"]:checked')
+            var gender = genderelement ? genderelement.id : "  "
+
+            event.preventDefault()
+            if (studname.value == "" || age.value == "" || gender == "" || course.value == "" || email.value == "") {
+                alert("Please fill out all the fields!")
+                return
+            }
+
+            var row = document.createElement("tr")
+            var namecell = document.createElement("td")
+            var agecell = document.createElement("td")
+            var gendercell = document.createElement("td")
+            var coursecell = document.createElement("td")
+            var emailcell = document.createElement("td")
+
+            namecell.textContent = studname.value
+            console.log(namecell)
+            row.appendChild(namecell)
+
+            agecell.textContent = age.value
+            row.appendChild(agecell)
+
+            gendercell.textContent = gender
+            row.appendChild(gendercell)
+
+            coursecell.textContent = course.value
+            row.appendChild(coursecell)
+
+            emailcell.textContent = email.value
+            row.appendChild(emailcell)
+
+            var actioncell = document.createElement("td")
+            var deletebtn = document.createElement("button")
+
+            deletebtn.style.backgroundColor = "red"
+            deletebtn.style.padding = "5px"
+            deletebtn.textContent = "Delete"
+            deletebtn.style.color = "white"
+            deletebtn.style.border = "none"
+            deletebtn.style.borderRadius = "30px"
+            deletebtn.style.cursor = "pointer"
+            deletebtn.style.margin = "5px"
+
+            deletebtn.addEventListener("click", function () {
+                row.remove()
+            })
+
+            actioncell.append(deletebtn)
+            row.append(actioncell)
+
+            displaytable.append(row)
+            regform.reset()
+        }
+
+    </script>
+</body>
+
+</html>
